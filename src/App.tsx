@@ -59,8 +59,8 @@ function App() {
         <Box
           display={'flex'}
           alignItems={'flex-start'}
-          justifyContent={'space-around'}
-          gap="30px"
+          justifyContent={'space-evenly'}
+          gap={'5%'}
           onClick={() => ''}
           flexWrap={'wrap'}
         >
