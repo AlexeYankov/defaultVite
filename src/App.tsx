@@ -1,35 +1,87 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import "./styles/_boilerplate.scss";
+import { useEffect, useState } from 'react';
+import { PokeContainer } from './components/pokeContainer/pokeContainer';
+import { Poke } from './components/pokes/pokes';
+import { pokeApi } from './core/pokeApi/getData';
+import { Box, Center, Text } from '@chakra-ui/react';
+import { PokeImageType, PokeType } from './core/types';
+import { pokeImage } from './constants';
+import defaultImage from '../public/poke/pokemon-colosseum-feraligatr-1-1.avif';
+import Providers from './core/config/Provider';
+import { CreatePokePanel } from './components/createPokePanel/createPokePanel';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pokemons, setPokemons] = useState([] as Array<PokeType>);
 
+  useEffect(() => {
+    pokeApi.getPokes().then((res) => setPokemons(res.data));
+  }, []);
+
+  const [catId, setCat] = useState(0);
+  const [ownerId, setownerId] = useState(0);
+  const [name, setName] = useState('');
+
+  const deleteHandler = (id: number) =>
+    pokeApi.deletePoke(id).then((res) => {
+      pokeApi.getPokes().then((res) => setPokemons(res.data));
+    });
+
+  const createPokeHandler = () => {
+    const data = { name, catId, ownerId };
+    pokeApi.createPoke(data).then((res) => {
+      pokeApi.getPokes().then((res) => {
+        resetForm();
+        setPokemons(res.data);
+      });
+    });
+  };
+
+  const resetForm = () => {
+    setName('');
+    setownerId(0);
+    setCat(0);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Providers>
+      <Center paddingTop={'20px'}>
+        <Text fontSize="6xl">Simple Poke App</Text>
+      </Center>
+      <Poke>
+        <CreatePokePanel
+          name={name}
+          ownerId={ownerId}
+          catId={catId}
+          setCat={setCat}
+          setName={setName}
+          setownerId={setownerId}
+          createPokeHandler={createPokeHandler}
+        />
+
+        <Box
+          display={'flex'}
+          alignItems={'flex-start'}
+          justifyContent={'space-around'}
+          gap="30px"
+          onClick={() => ''}
+          flexWrap={'wrap'}
+        >
+          {pokemons.map((el, i) => {
+            let image = defaultImage;
+            if (Object.getOwnPropertyNames(pokeImage).includes(el.name)) {
+              image = pokeImage[el.name as keyof PokeImageType];
+            }
+            return (
+              <PokeContainer
+                key={i}
+                img={image}
+                name={el.name}
+                deleteFn={() => deleteHandler(el.id)}
+              />
+            );
+          })}
+        </Box>
+      </Poke>
+    </Providers>
+  );
 }
 
-export default App
+export default App;
