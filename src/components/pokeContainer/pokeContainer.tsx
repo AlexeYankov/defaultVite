@@ -17,7 +17,18 @@ export const PokeContainer = ({
   deleteFn: () => void;
 }) => {
   return (
-    <Card _hover={{ bg: 'teal' }} transitionDuration="0.4s" cursor={'pointer'}>
+    <Card
+      display={'flex'}
+      alignItems={'center'}
+      flexWrap={'wrap'}
+      _hover={{ bg: 'teal' }}
+      transitionDuration="0.4s"
+      cursor={'pointer'}
+      maxW={'30%'}
+      width={'100%'}
+      minW={'380px'}
+      marginTop={'30px'}
+    >
       <CardBody>
         <Center
           display={'flex'}
@@ -42,8 +53,6 @@ export const PokeContainer = ({
           flexDirection={'column'}
           gap={'20px'}
           padding={'20px'}
-          // height={'100vh'}
-          //   maxW={'1440px'}
         >
           <img
             src={img}

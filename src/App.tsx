@@ -5,9 +5,9 @@ import { pokeApi } from './core/pokeApi/getData';
 import { Box, Center, Text } from '@chakra-ui/react';
 import { PokeImageType, PokeType } from './core/types';
 import { pokeImage } from './constants';
+import { CreatePokePanel } from './components/createPokePanel/createPokePanel';
 import defaultImage from '../public/poke/pokemon-colosseum-feraligatr-1-1.avif';
 import Providers from './core/config/Provider';
-import { CreatePokePanel } from './components/createPokePanel/createPokePanel';
 
 function App() {
   const [pokemons, setPokemons] = useState([] as Array<PokeType>);
@@ -61,8 +61,11 @@ function App() {
           alignItems={'flex-start'}
           justifyContent={'space-evenly'}
           gap={'5%'}
+          id="fergerr"
           onClick={() => ''}
           flexWrap={'wrap'}
+          marginBottom={'60px'}
+          // py={'20px'}
         >
           {pokemons.map((el, i) => {
             let image = defaultImage;

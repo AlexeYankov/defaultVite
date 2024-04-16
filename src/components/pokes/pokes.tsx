@@ -7,18 +7,18 @@ export const Poke = ({ children }: { children: React.ReactNode }) => {
       alignItems={'center'}
       justifyContent={'flex-start'}
       flexDirection={'column'}
-      height={'100vh'}
+      gap={'30px'}
+      // height={'100vh'}
     >
       <Box
         display={'flex'}
         alignItems={'flex-start'}
-        justifyContent={'flex-start'}
+        justifyContent={'space-around'}
         flexDirection={'column'}
         width={'100%'}
         maxW={'1440px'}
         paddingTop={'30px'}
         gap={'30px'}
-        paddingX={'20px'}
       >
         {children}
       </Box>

@@ -1,10 +1,3 @@
-export const images = [
-  '../../../public/poke/squartel.jpeg',
-  '../../../public/poke/squartel.jpeg',
-  '../../../public/poke/squartel.jpeg',
-  '../../../public/poke/squartel.jpeg',
-];
-
 export const pokeImage = {
   Venasuar: '../public/poke/Venasuar.webp',
   Squirtle: '../public/poke/squartel.jpeg',
